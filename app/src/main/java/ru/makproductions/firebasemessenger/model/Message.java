@@ -2,7 +2,7 @@ package ru.makproductions.firebasemessenger.model;
 
 import java.util.ArrayList;
 
-class Message {
+public class Message {
     private String text;
     private String authorName;
     private ArrayList<IncludedImage> images;
@@ -10,6 +10,13 @@ class Message {
     private ArrayList<IncludedVideo> videos;
     private long timeOfCreation;
     private long timeOfChange;
+
+    private Message() {
+    }
+
+    public MessageBuilder getMessageBuilder() {
+        return new MessageBuilder(new Message());
+    }
 
     public void setImages(ArrayList<IncludedImage> images) {
         this.images = images;

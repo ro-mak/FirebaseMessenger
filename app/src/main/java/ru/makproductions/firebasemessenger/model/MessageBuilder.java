@@ -7,39 +7,39 @@ package ru.makproductions.firebasemessenger.model;
         this.message = message;
     }
 
-    public Message withText(String text) {
+    public MessageBuilder withText(String text) {
         message.setText(text);
-        return this.message;
+        return this;
     }
 
-    public Message withAuthorName(String authorName) {
+    public MessageBuilder withAuthorName(String authorName) {
         message.setText(authorName);
-        return this.message;
+        return this;
     }
 
-    public Message withImage(IncludedImage image) {
+    public MessageBuilder withImage(IncludedImage image) {
         message.addImage(image);
-        return this.message;
+        return this;
     }
 
-    public Message withSound(IncludedSound sound) {
+    public MessageBuilder withSound(IncludedSound sound) {
         message.addSound(sound);
-        return this.message;
+        return this;
     }
 
-    public Message withVideo(IncludedVideo video) {
+    public MessageBuilder withVideo(IncludedVideo video) {
         message.addVideo(video);
-        return this.message;
+        return this;
     }
 
-    public Message withCreationTime(long creationTime) {
+    public MessageBuilder withCreationTime(long creationTime) {
         message.setTimeOfCreation(creationTime);
-        return this.message;
+        return this;
     }
 
-    public Message withChangeTime(long changeTime) {
+    public MessageBuilder withChangeTime(long changeTime) {
         message.setTimeOfChange(changeTime);
-        return this.message;
+        return this;
     }
 
     public Message build() {

@@ -1,10 +1,10 @@
 package ru.makproductions.firebasemessenger.model;
 
-    public class MessageBuilder {
+public class MessageBuilder {
     private Message message;
 
-    MessageBuilder(Message message) {
-        this.message = message;
+    MessageBuilder() {
+        message = new Message();
     }
 
     public MessageBuilder withText(String text) {

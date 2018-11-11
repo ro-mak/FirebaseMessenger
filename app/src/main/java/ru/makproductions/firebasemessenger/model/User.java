@@ -9,7 +9,7 @@ public class User {
     private boolean isOnline;
     private ArrayList<User> friendsList;
 
-    public int numberOfFriends(){
+    public int numberOfFriends() {
         return friendsList.size();
     }
 

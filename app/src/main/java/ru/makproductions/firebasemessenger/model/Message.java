@@ -11,11 +11,7 @@ public class Message {
     private long timeOfCreation;
     private long timeOfChange;
 
-    private Message() {
-    }
-
-    public MessageBuilder getMessageBuilder() {
-        return new MessageBuilder(new Message());
+    Message() {
     }
 
     public void setImages(ArrayList<IncludedImage> images) {

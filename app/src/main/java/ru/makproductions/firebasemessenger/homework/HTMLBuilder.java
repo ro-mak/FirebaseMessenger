@@ -2,7 +2,7 @@ package ru.makproductions.firebasemessenger.homework;
 
 import android.util.Log;
 
-public class HTMLBuilder {
+public class HTMLBuilder implements Builder {
     private static final String TAG = "TAG";
     private StringBuilder htmlPage;
     private boolean tagClosed = true;

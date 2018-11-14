@@ -11,7 +11,6 @@ import java.util.Random;
 import ru.makproductions.firebasemessenger.R;
 import ru.makproductions.firebasemessenger.databinding.ActivityMainBinding;
 import ru.makproductions.firebasemessenger.homework.Builder;
-import ru.makproductions.firebasemessenger.homework.HTMLBuilder;
 import ru.makproductions.firebasemessenger.homework.RandomIterable;
 import ru.makproductions.firebasemessenger.homework.SingletoneProxyHTMLBuilder;
 import ru.makproductions.firebasemessenger.homework.StringToIterableAdapter;
@@ -28,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         petya.setName("Petya");
         petya.setSurname("Fedorov");
         //TASK 2 and 4 HTMLBuilder and Proxy
-        Builder htmlBuilder = SingletoneProxyHTMLBuilder.getBuilder();
+
+        Builder htmlBuilder = new SingletoneProxyHTMLBuilder();
         String status = htmlBuilder.openTag("<html>")
                 .openTag("head").closeTag("head")
                 .openTag("<body>").addText("Hello!").closeTag("<body/>")

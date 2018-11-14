@@ -1,4 +1,4 @@
-package ru.makproductions.firebasemessenger.model;
+package ru.makproductions.firebasemessenger.model.message;
 
 public class MessageBuilder {
     private Message message;

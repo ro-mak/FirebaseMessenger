@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <data>
-
         <variable
             name="user"
             type="ru.makproductions.firebasemessenger.model.User" />
@@ -11,6 +10,7 @@
         <variable
             name="viewmodel"
             type="ru.makproductions.firebasemessenger.viewmodel.MainActivityViewModel" />
+
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,6 +28,25 @@
             android:layout_height="wrap_content"
             android:text="@{user.status}"
             />
-
+        <EditText
+            android:id="@+id/message_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_name"
+            />
+        <TextView
+            android:id="@+id/history_text_view"
+            android:layout_below="@id/message_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.message}"
+            />
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:layout_below="@id/history_text_view"
+            />
     </RelativeLayout>
 </layout>

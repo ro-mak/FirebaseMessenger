@@ -10,31 +10,24 @@ import java.util.Random;
 
 import ru.makproductions.firebasemessenger.R;
 import ru.makproductions.firebasemessenger.databinding.ActivityMainBinding;
-import ru.makproductions.firebasemessenger.homework.Builder;
 import ru.makproductions.firebasemessenger.homework.RandomIterable;
-import ru.makproductions.firebasemessenger.homework.SingletoneProxyHTMLBuilder;
 import ru.makproductions.firebasemessenger.homework.StringToIterableAdapter;
-import ru.makproductions.firebasemessenger.model.User;
+import ru.makproductions.firebasemessenger.viewmodel.MainActivityViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    private MainActivityViewModel mainActivityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        User petya = new User();
-        petya.setName("Petya");
-        petya.setSurname("Fedorov");
-        //TASK 2 and 4 HTMLBuilder and Proxy
+        mainActivityViewModel = new MainActivityViewModel(this, binding);
+        binding.setViewmodel(mainActivityViewModel);
+        mainActivityViewModel.onCreate();
 
-        Builder htmlBuilder = new SingletoneProxyHTMLBuilder();
-        String status = htmlBuilder.openTag("<html>")
-                .openTag("head").closeTag("head")
-                .openTag("<body>").addText("Hello!").closeTag("<body/>")
-                .closeTag("html").build();
-        petya.setStatus(status);
-        binding.setUser(petya);
+        //region oldhomework
         //TASK 3.3 Адаптер для String
         String[] testStrings = {"Hi", "Hello", "Hohoho"};
 
@@ -61,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         for (Integer integer : randomIterable) {
             Log.e("RandomIterable", integer + "");
         }
+        //endregion homework
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mainActivityViewModel.onResume();
     }
 }

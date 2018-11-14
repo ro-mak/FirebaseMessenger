@@ -1,4 +1,4 @@
-package ru.makproductions.firebasemessenger.model;
+package ru.makproductions.firebasemessenger.model.message;
 
 public abstract class IncludedMedia {
     protected String path;

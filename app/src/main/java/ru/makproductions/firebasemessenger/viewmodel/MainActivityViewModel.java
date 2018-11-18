@@ -68,7 +68,7 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     @Bindable
-    public History getHistory(){
+    public History getHistory() {
         return user.getHistory();
     }
 

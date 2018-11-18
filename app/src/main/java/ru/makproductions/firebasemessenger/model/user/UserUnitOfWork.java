@@ -80,6 +80,7 @@ public class UserUnitOfWork {
     }
 
     public static User getUser(int key) {
+        if (userMapper == null) throw new RuntimeException("UserMapper null in UserUnitOfWork");
         Map<Long, User> map = userMap;
         User user = map.get((long) key);
         if (user == null) {

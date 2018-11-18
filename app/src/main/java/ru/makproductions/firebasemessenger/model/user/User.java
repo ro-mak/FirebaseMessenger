@@ -22,6 +22,7 @@ public class User {
 
     public void setMessage(Editable message) {
         this.message = message;
+        markChanged();
     }
 
     public History getHistory() {
@@ -30,6 +31,7 @@ public class User {
 
     public void setHistory(History history) {
         this.history = history;
+        markChanged();
     }
 
     public int numberOfFriends() {
@@ -38,10 +40,12 @@ public class User {
 
     public User() {
         friendsList = new ArrayList<>();
+        markNew();
     }
 
     public void addFriend(User friend) {
         friendsList.add(friend);
+        markChanged();
     }
 
     public String getName() {
@@ -49,7 +53,9 @@ public class User {
     }
 
     public void setName(String name) {
+
         this.name = name;
+        markChanged();
     }
 
     public String getSurname() {
@@ -58,6 +64,7 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+        markChanged();
     }
 
     public String getStatus() {
@@ -66,6 +73,7 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+        markChanged();
     }
 
     public boolean isOnline() {
@@ -74,6 +82,7 @@ public class User {
 
     public void setOnline(boolean online) {
         isOnline = online;
+        markChanged();
     }
 
     public long getUserId() {
@@ -82,6 +91,7 @@ public class User {
 
     public void setUserId(long userId) {
         this.userId = userId;
+        markChanged();
     }
 
     void markNew() {

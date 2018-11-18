@@ -5,18 +5,20 @@ import android.text.Editable;
 
 public class History {
     private ObservableArrayList<String> history;
-    public History(){
+
+    public History() {
         history = new ObservableArrayList<>();
     }
 
-    public void addMessage(String message){
+    public void addMessage(String message) {
         history.add(message);
     }
-    public void addMessage(Editable message){
+
+    public void addMessage(Editable message) {
         history.add(message.toString());
     }
 
-    public void clearHistory(){
+    public void clearHistory() {
         history.clear();
     }
 }

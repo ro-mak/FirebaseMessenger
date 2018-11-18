@@ -1,14 +1,13 @@
-package ru.makproductions.firebasemessenger.model;
+package ru.makproductions.firebasemessenger.model.user;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.text.Editable;
 
 import java.util.ArrayList;
 
-import ru.makproductions.firebasemessenger.BR;
+import ru.makproductions.firebasemessenger.model.History;
 
-public class User extends BaseObservable {
+public class User {
+    private long userId;
     private String name;
     private String surname;
     private String status;
@@ -17,24 +16,20 @@ public class User extends BaseObservable {
     private History history;
     private Editable message;
 
-    @Bindable
     public Editable getMessage() {
         return message;
     }
 
     public void setMessage(Editable message) {
         this.message = message;
-        notifyPropertyChanged(BR.message);
     }
 
-    @Bindable
     public History getHistory() {
         return history;
     }
 
     public void setHistory(History history) {
         this.history = history;
-        notifyPropertyChanged(BR.history);
     }
 
     public int numberOfFriends() {
@@ -49,7 +44,6 @@ public class User extends BaseObservable {
         friendsList.add(friend);
     }
 
-    @Bindable
     public String getName() {
         return name;
     }
@@ -58,17 +52,14 @@ public class User extends BaseObservable {
         this.name = name;
     }
 
-    @Bindable
     public String getSurname() {
         return surname;
     }
 
     public void setSurname(String surname) {
         this.surname = surname;
-        notifyPropertyChanged(BR.surname);
     }
 
-    @Bindable
     public String getStatus() {
         return status;
     }
@@ -83,5 +74,25 @@ public class User extends BaseObservable {
 
     public void setOnline(boolean online) {
         isOnline = online;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    void markNew() {
+        UserUnitOfWork.getCurrent().registerNewUser(this);
+    }
+
+    void markChanged() {
+        UserUnitOfWork.getCurrent().registerChangedUser(this);
+    }
+
+    void markRemoved() {
+        UserUnitOfWork.getCurrent().registerRemovedUser(this);
     }
 }

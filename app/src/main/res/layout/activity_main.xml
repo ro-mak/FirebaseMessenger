@@ -4,10 +4,6 @@
     >
     <data>
         <variable
-            name="user"
-            type="ru.makproductions.firebasemessenger.model.User" />
-
-        <variable
             name="viewmodel"
             type="ru.makproductions.firebasemessenger.viewmodel.MainActivityViewModel" />
 
@@ -19,14 +15,14 @@
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{user.name + ' ' + user.surname}"
+            android:text="@{viewmodel.getName + ' ' + viewmodel.getSurname}"
             />
         <TextView
             android:layout_below="@id/user_name"
             android:id="@+id/user_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{user.status}"
+            android:text="@{viewmodel.getStatus}"
             />
         <EditText
             android:id="@+id/message_text_view"
@@ -39,7 +35,7 @@
             android:layout_below="@id/message_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{user.message}"
+            android:text="@{viewmodel.getMessage}"
             />
         <Button
             android:id="@+id/submit_button"

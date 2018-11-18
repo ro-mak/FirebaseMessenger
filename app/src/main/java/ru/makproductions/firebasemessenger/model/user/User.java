@@ -85,14 +85,14 @@ public class User {
     }
 
     void markNew() {
-        UserUnitOfWork.getCurrent().registerNewUser(this);
+        UserUnitOfWork.getInstance().registerNewUser(this);
     }
 
     void markChanged() {
-        UserUnitOfWork.getCurrent().registerChangedUser(this);
+        UserUnitOfWork.getInstance().registerChangedUser(this);
     }
 
     void markRemoved() {
-        UserUnitOfWork.getCurrent().registerRemovedUser(this);
+        UserUnitOfWork.getInstance().registerRemovedUser(this);
     }
 }

@@ -16,6 +16,8 @@ import ru.makproductions.firebasemessenger.databinding.ActivityMainBinding;
 import ru.makproductions.firebasemessenger.model.DataBaseHelper;
 import ru.makproductions.firebasemessenger.model.History;
 import ru.makproductions.firebasemessenger.model.user.User;
+import ru.makproductions.firebasemessenger.model.user.UserBuilder;
+import ru.makproductions.firebasemessenger.model.user.UserUnitOfWork;
 
 public class MainActivityViewModel extends BaseObservable {
     private Activity activity;
@@ -31,9 +33,13 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     public void onCreate() {
-        user = new User();
-        user.setName("Petya");
-        user.setSurname("Fedorov");
+        UserUnitOfWork.init(activity);
+        UserUnitOfWork.addUser(new UserBuilder()
+                .withName("Petya")
+                .withSurname("Fedorov")
+                .build());
+        UserUnitOfWork.getInstance().commit();
+        user = UserUnitOfWork.getUser(1);
         final EditText messageField = activity.findViewById(R.id.message_text_view);
         final Button submitButton = activity.findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {

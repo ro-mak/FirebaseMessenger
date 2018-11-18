@@ -2,6 +2,7 @@ package ru.makproductions.firebasemessenger.model.user;
 
 import android.app.Activity;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,21 +10,27 @@ import java.util.Map;
 
 public class UserUnitOfWork {
 
-    private List<User> newUsers = new ArrayList<>();
-    private List<User> changedUsers = new ArrayList<>();
-    private List<User> removedUsers = new ArrayList<>();
-    private Map<Long, User> userMap = new HashMap<>();
+    private static List<User> newUsers = new ArrayList<>();
+    private static List<User> changedUsers = new ArrayList<>();
+    private static List<User> removedUsers = new ArrayList<>();
+    private static Map<Long, User> userMap = new HashMap<>();
     private static UserUnitOfWork userUnitOfWork;
     private static UserMapper userMapper;
+    private static WeakReference<Activity> activity;
 
     private UserUnitOfWork() {
 
     }
 
-    public static UserUnitOfWork getInstance(Activity activity) {
+    public static void init(Activity activity) {
+        UserUnitOfWork.activity = new WeakReference<>(activity);
+        userMapper = new UserMapper(new UsersDataBaseSaver(UserUnitOfWork.activity.get()));
+    }
+
+    public static UserUnitOfWork getInstance() {
+        if (activity == null) throw new RuntimeException("UserUnitOfWork activity is not set");
         if (userUnitOfWork == null) {
             userUnitOfWork = new UserUnitOfWork();
-            userMapper = new UserMapper(new UsersDataBaseSaver(activity));
         }
         return userUnitOfWork;
     }
@@ -64,23 +71,8 @@ public class UserUnitOfWork {
         deleteRemovedUsers();
     }
 
-    private static ThreadLocal current = new ThreadLocal();
-
-    public static void newCurrent() {
-        setCurrent(new UserUnitOfWork());
-    }
-
-    static void setCurrent(UserUnitOfWork userUnitOfWork) {
-        current.set(userUnitOfWork);
-    }
-
-    public static UserUnitOfWork getCurrent() {
-        return (UserUnitOfWork) current.get();
-    }
-
-
     public static void addUser(User user) {
-        Map<Long, User> map = userUnitOfWork.userMap;
+        Map<Long, User> map = userMap;
         if ((map.get(user.getUserId())) == null) {
             userMapper.insertUser(user);
         }
@@ -88,7 +80,7 @@ public class UserUnitOfWork {
     }
 
     public static User getUser(int key) {
-        Map<Long, User> map = userUnitOfWork.userMap;
+        Map<Long, User> map = userMap;
         User user = map.get((long) key);
         if (user == null) {
             return userMapper.findUserById(key);

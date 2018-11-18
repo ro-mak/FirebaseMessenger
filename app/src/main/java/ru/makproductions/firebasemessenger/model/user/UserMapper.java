@@ -7,6 +7,7 @@ public class UserMapper {
     public UserMapper(UsersDataBaseSaver usersDataBaseSaver){
         this.usersDataBaseSaver = usersDataBaseSaver;
         this.usersDataBaseReader = usersDataBaseSaver.getUsersDataBaseReader();
+        this.usersDataBaseSaver.openDatabase();
     }
 
     public User findUserById(int userId){

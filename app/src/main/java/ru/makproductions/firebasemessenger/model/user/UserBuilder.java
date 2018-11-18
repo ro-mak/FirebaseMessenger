@@ -17,12 +17,12 @@ public class UserBuilder {
     }
 
     public UserBuilder withSurname(String surname) {
-        user.setName(surname);
+        user.setSurname(surname);
         return this;
     }
 
     public UserBuilder withStatus(String status) {
-        user.setName(status);
+        user.setStatus(status);
         return this;
     }
 
@@ -32,7 +32,7 @@ public class UserBuilder {
     }
 
     public User build() {
-        if (user != null && user.getName() != null && user.getSurname() != null && user.getStatus() != null) {
+        if (user != null && user.getName() != null && user.getSurname() != null) {
             return user;
         } else {
             throw new RuntimeException("User parameters haven't been set");

@@ -1,6 +1,8 @@
 package ru.makproductions.firebasemessenger.model.user;
 
 import android.app.Activity;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserUnitOfWork {
+public class UserUnitOfWork implements UserRepository {
 
     private static List<User> newUsers = new ArrayList<>();
     private static List<User> changedUsers = new ArrayList<>();
@@ -49,7 +51,9 @@ public class UserUnitOfWork {
 
     private void insertNewUsers() {
         for (User user : newUsers) {
-            addUser(user);
+            MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
+            userMutableLiveData.setValue(user);
+            addUser(userMutableLiveData);
         }
     }
 
@@ -71,7 +75,9 @@ public class UserUnitOfWork {
         deleteRemovedUsers();
     }
 
-    public static void addUser(User user) {
+    public void addUser(LiveData<User> userLiveData) {
+        User user = userLiveData.getValue();
+        if (user == null) throw new RuntimeException("Trying to add null user");
         Map<Long, User> map = userMap;
         if ((map.get(user.getUserId())) == null) {
             userMapper.insertUser(user);
@@ -79,14 +85,16 @@ public class UserUnitOfWork {
         map.put(user.getUserId(), user);
     }
 
-    public static User getUser(int key) {
+    public LiveData<User> getUser(int key) {
+        final MutableLiveData<User> mutableLiveData = new MutableLiveData<>();
         if (userMapper == null) throw new RuntimeException("UserMapper null in UserUnitOfWork");
         Map<Long, User> map = userMap;
         User user = map.get((long) key);
         if (user == null) {
-            return userMapper.findUserById(key);
+            mutableLiveData.setValue(userMapper.findUserById(key));
         } else {
-            return user;
+            mutableLiveData.setValue(user);
         }
+        return mutableLiveData;
     }
 }

@@ -1,5 +1,6 @@
 package ru.makproductions.firebasemessenger.view;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,9 @@ import android.util.Log;
 import java.util.Iterator;
 import java.util.Random;
 
+import javax.inject.Inject;
+
+import dagger.Component;
 import ru.makproductions.firebasemessenger.R;
 import ru.makproductions.firebasemessenger.databinding.ActivityMainBinding;
 import ru.makproductions.firebasemessenger.homework.RandomIterable;
@@ -18,12 +22,17 @@ public class MainActivity extends AppCompatActivity {
 
     private MainActivityViewModel mainActivityViewModel;
 
+    @Component
+    public interface MainActivityViewModelCreator{
+        MainActivityViewModel create(Activity activity, ActivityMainBinding binding);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mainActivityViewModel = new MainActivityViewModel(this, binding);
+        mainActivityViewModel = DaggerMainActivity_MainActivityViewModelCreator.builder().build().create(this,binding);
         binding.setViewmodel(mainActivityViewModel);
         mainActivityViewModel.onCreate();
 

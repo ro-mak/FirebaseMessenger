@@ -16,6 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import javax.inject.Inject;
+
+import dagger.Module;
+import dagger.Provides;
 import ru.makproductions.firebasemessenger.BR;
 import ru.makproductions.firebasemessenger.databinding.ActivityMainBinding;
 import ru.makproductions.firebasemessenger.model.DataBaseHelper;
@@ -34,9 +38,8 @@ public class MainActivityViewModel extends BaseObservable implements LifecycleOw
     private UserRepository userRepository;
     private LifecycleRegistry lifecycleRegistry;
 
-
+    @Inject
     public MainActivityViewModel(Activity activity, ActivityMainBinding binding) {
-
         this.activity = activity;
         this.binding = binding;
         dataBaseHelper = new DataBaseHelper();

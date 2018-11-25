@@ -16,8 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import javax.inject.Inject;
-
 import dagger.Module;
 import dagger.Provides;
 import ru.makproductions.firebasemessenger.BR;
@@ -29,6 +27,7 @@ import ru.makproductions.firebasemessenger.model.user.UserBuilder;
 import ru.makproductions.firebasemessenger.model.user.UserRepository;
 import ru.makproductions.firebasemessenger.model.user.UserUnitOfWork;
 
+@Module
 public class MainActivityViewModel extends BaseObservable implements LifecycleOwner {
     private Activity activity;
     private DataBaseHelper dataBaseHelper;
@@ -38,10 +37,20 @@ public class MainActivityViewModel extends BaseObservable implements LifecycleOw
     private UserRepository userRepository;
     private LifecycleRegistry lifecycleRegistry;
 
-    @Inject
-    public MainActivityViewModel(Activity activity, ActivityMainBinding binding) {
+    @Provides
+    public MainActivityViewModel getMainActivityViewModel() {
+        return new MainActivityViewModel();
+    }
+
+    public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public void setBinding(ActivityMainBinding binding) {
         this.binding = binding;
+    }
+
+    public MainActivityViewModel() {
         dataBaseHelper = new DataBaseHelper();
     }
 
